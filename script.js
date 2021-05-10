@@ -38,13 +38,28 @@ function drawFood(){
     context.fillRect(food.x, food.y, box, box); 
 }
 
+//quando um evento acontece, detecta e chama uma função
+document.addEventListener('keydown', update);
+
+function update(event){
+    if(event.keyCode == 37 && direction != 'right') direction = 'left';
+    if(event.keyCode == 38 && direction != 'down') direction = 'up';
+    if(event.keyCode == 39 && direction != 'left') direction = 'right';
+    if(event.keyCode == 40 && direction != 'up') direction = 'down';
+}
+
 
 //aqui vamos passar todas as funções dentro da iniciar 
 //para que sempre que iniciar o jogo elas carregarem
 function iniciarJogo() {
+
+    
+
     criarBG(); // aqui chama a função para mostrar o jogo
     criarCobrinha();
     drawFood();//chama função da comidinha
+
+  
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
@@ -55,7 +70,18 @@ function iniciarJogo() {
     if (direction == "up") snakeY -= box;
     if (direction == "down") snakeY += box;
 
-    snake.pop(); //pop retira o último elemento da lista
+    //caso a posição da snake x seja diferente da food x e 
+    // a nossa posição da snake y seja diferente da comida y, 
+    //ela vai retirar o ultimo elemento  da nossa cobrinha.
+    //caso não ela vai continuar aumentando e vai passar a função de girar aleatorio a comidinha
+    //para quando passar por cima a comidinha aparecer em outro lugar aleatoriamente
+
+    if(snakeX != food.x || snakeY != food.y){
+        snake.pop(); //pop tira o último elemento da lista
+    }else{
+        food.x = Math.floor(Math.random() * 15 +1) * box;
+        food.y = Math.floor(Math.random() * 15 +1) * box;
+    }
 
     //adiciona nova cabeça no inicio
     let newHead = {

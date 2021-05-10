@@ -19,7 +19,7 @@ let food = {
 
 function criarBG() {
     //fillStyle trabalha o estilo do canvas
-    context.fillStyle = "lightgreen"; //define a cor
+    context.fillStyle = "#74c69d"; //define a cor
     //fillRect desenha aonde vai acontecer o jogo,
     //o retângulo usando x e y e a largura e altura setadas
     context.fillRect(0, 0, 16 * box, 16 * box); //utiliza o tamanho do box que foi criado de 32px
@@ -27,14 +27,14 @@ function criarBG() {
 
 function criarCobrinha() {
     for (i = 0; i < snake.length; i++) {
-        context.fillStyle = "green";
+        context.fillStyle = "#2763DB"; //cor da cobrinha
         context.fillRect(snake[i].x, snake[i].y, box, box);
     }
 }
 
 function drawFood() {
 
-    context.fillStyle = "red";
+    context.fillStyle = "red"; //cor da comida
     context.fillRect(food.x, food.y, box, box);
 }
 

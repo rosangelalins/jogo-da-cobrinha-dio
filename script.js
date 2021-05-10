@@ -10,6 +10,12 @@ snake[0] = {
 }
 
 let direction = "right";
+let food = {
+    //criação das comidinhas que vão aparecer aleatoriamente com o Math.random 
+    //que retorna a um numero aleatório +1
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 function criarBG() {
     //fillStyle trabalha o estilo do canvas
@@ -26,11 +32,19 @@ function criarCobrinha() {
     }
 }
 
+function drawFood(){
+   
+    context.fillStyle = "red"; 
+    context.fillRect(food.x, food.y, box, box); 
+}
+
+
 //aqui vamos passar todas as funções dentro da iniciar 
 //para que sempre que iniciar o jogo elas carregarem
 function iniciarJogo() {
     criarBG(); // aqui chama a função para mostrar o jogo
     criarCobrinha();
+    drawFood();//chama função da comidinha
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;

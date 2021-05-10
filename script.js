@@ -32,20 +32,20 @@ function criarCobrinha() {
     }
 }
 
-function drawFood(){
-   
-    context.fillStyle = "red"; 
-    context.fillRect(food.x, food.y, box, box); 
+function drawFood() {
+
+    context.fillStyle = "red";
+    context.fillRect(food.x, food.y, box, box);
 }
 
 //quando um evento acontece, detecta e chama uma função
 document.addEventListener('keydown', update);
 
-function update(event){
-    if(event.keyCode == 37 && direction != 'right') direction = 'left';
-    if(event.keyCode == 38 && direction != 'down') direction = 'up';
-    if(event.keyCode == 39 && direction != 'left') direction = 'right';
-    if(event.keyCode == 40 && direction != 'up') direction = 'down';
+function update(event) {
+    if (event.keyCode == 37 && direction != 'right') direction = 'left';
+    if (event.keyCode == 38 && direction != 'down') direction = 'up';
+    if (event.keyCode == 39 && direction != 'left') direction = 'right';
+    if (event.keyCode == 40 && direction != 'up') direction = 'down';
 }
 
 
@@ -53,13 +53,24 @@ function update(event){
 //para que sempre que iniciar o jogo elas carregarem
 function iniciarJogo() {
 
-    
+    if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
+    if (snake[0].x < 0 && direction == 'left') snake[0].x = 16 * box;
+    if (snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
+    if (snake[0].y < 0 && direction == 'up') snake[0].y = 16 * box;
+
+    //quando a cobrinha se choca e da game over
+    for (i = 1; i < snake.length; i++) {
+        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+            clearInterval(jogo); //para a função jogo e alerta que o jogo acabou
+            alert('Game Over :(');
+        }
+    }
 
     criarBG(); // aqui chama a função para mostrar o jogo
     criarCobrinha();
     drawFood();//chama função da comidinha
 
-  
+
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
@@ -76,11 +87,11 @@ function iniciarJogo() {
     //caso não ela vai continuar aumentando e vai passar a função de girar aleatorio a comidinha
     //para quando passar por cima a comidinha aparecer em outro lugar aleatoriamente
 
-    if(snakeX != food.x || snakeY != food.y){
+    if (snakeX != food.x || snakeY != food.y) {
         snake.pop(); //pop tira o último elemento da lista
-    }else{
-        food.x = Math.floor(Math.random() * 15 +1) * box;
-        food.y = Math.floor(Math.random() * 15 +1) * box;
+    } else {
+        food.x = Math.floor(Math.random() * 15 + 1) * box;
+        food.y = Math.floor(Math.random() * 15 + 1) * box;
     }
 
     //adiciona nova cabeça no inicio
